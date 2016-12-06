@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import org.openmhealth.schema.domain.ork.InformedConsentDocument;
 import org.openmhealth.schema.serializer.SerializationConstructor;
 
 import java.time.OffsetDateTime;
@@ -35,14 +36,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * The header of a data point.
  *
  * @author Emerson Farrugia
- * @version 1.1
+ * @version 1.2
  * @see <a href="http://www.openmhealth.org/documentation/#/schema-docs/schema-library/schemas/omh_header">header</a>
  */
 @JsonInclude(NON_NULL)
 @JsonNaming(LowerCaseWithUnderscoresStrategy.class)
 public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport {
 
-    public static final SchemaId SCHEMA_ID = new SchemaId(OMH_NAMESPACE, "header", "1.1");
+    public static final SchemaId SCHEMA_ID = new SchemaId(OMH_NAMESPACE, "header", "1.2");
 
     private String id;
     private OffsetDateTime creationDateTime;
@@ -50,7 +51,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
     private DataPointAcquisitionProvenance acquisitionProvenance;
     private String userId;
     private Map<String, Object> additionalProperties = new HashMap<>();
-
+    private InformedConsentDocument consent;
 
     @SerializationConstructor
     protected DataPointHeader() {
@@ -63,6 +64,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
         private SchemaId bodySchemaId;
         private DataPointAcquisitionProvenance acquisitionProvenance;
         private String userId;
+        private InformedConsentDocument consent;
 
         /**
          * @param id the identifier of the data point
@@ -108,6 +110,11 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
             return this;
         }
 
+        public Builder setConsent(InformedConsentDocument consent) {
+            this.consent = consent;
+            return this;
+        }
+
         public DataPointHeader build() {
             return new DataPointHeader(this);
         }
@@ -120,6 +127,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
         this.bodySchemaId = builder.bodySchemaId;
         this.acquisitionProvenance = builder.acquisitionProvenance;
         this.userId = builder.userId;
+        this.consent = builder.consent;
     }
 
     public String getId() {
@@ -154,6 +162,10 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
         return this.additionalProperties;
     }
 
+    public InformedConsentDocument getConsent() {
+        return consent;
+    }
+
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object object) {
@@ -180,6 +192,9 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
                 : that.acquisitionProvenance != null) {
             return false;
         }
+        if (consent != null ? !consent.equals(that.consent) : that.consent != null) {
+            return false;
+        }
         return !(userId != null ? !userId.equals(that.userId) : that.userId != null);
     }
 
@@ -191,6 +206,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
         result = 31 * result + bodySchemaId.hashCode();
         result = 31 * result + (acquisitionProvenance != null ? acquisitionProvenance.hashCode() : 0);
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (consent != null ? consent.hashCode() : 0);
         return result;
     }
 }

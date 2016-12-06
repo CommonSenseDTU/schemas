@@ -16,10 +16,14 @@
 
 package org.openmhealth.schema.domain.omh;
 
+import org.openmhealth.schema.domain.ork.Confidentiality;
+import org.openmhealth.schema.domain.ork.InformedConsentDocument;
+import org.openmhealth.schema.domain.ork.Study;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 import static java.time.ZoneOffset.UTC;
@@ -135,8 +139,12 @@ public class DataPointHeaderUnitTests extends SerializationUnitTests {
     public void objectHavingOptionalPropertiesShouldSerializeCorrectly() throws Exception {
 
         String id = "123e4567-e89b-12d3-a456-426655440000";
+        String consentId = "123e4567-e89b-12d3-a456-426655440001";
+        String studyId = "123e4567-e89b-12d3-a456-426655440002";
+        String studyGuid = "123e4567-e89b-12d3-a456-426655440003";
         SchemaId schemaId = new SchemaId("omh", "physical-activity", "1.1.RC1");
         OffsetDateTime creationDateTime = OffsetDateTime.of(2013, 2, 5, 7, 30, 0, 0, UTC);
+        OffsetDateTime expiryDateTime = OffsetDateTime.of(2020, 2, 5, 7, 30, 0, 0, UTC);
 
         DataPointHeader header = new DataPointHeader.Builder(id, schemaId, creationDateTime)
                 .setAcquisitionProvenance(
@@ -146,6 +154,15 @@ public class DataPointHeaderUnitTests extends SerializationUnitTests {
                                 .build()
                 )
                 .setUserId("user1")
+                .setConsent(new InformedConsentDocument.Builder(consentId, creationDateTime)
+                        .setTitle("Consent document")
+                        .setCanWithdraw(true)
+                        .setWithdrawn(false)
+                        .setExpiryDateTime(Optional.of(expiryDateTime))
+                        .setConfidentiality(Confidentiality.INDIVIDUAL_STUDY)
+                        .setStudy(new Study.Builder(studyId, studyGuid)
+                                .build())
+                        .build())
                 .build();
 
         String document = "{\n" +
@@ -161,7 +178,20 @@ public class DataPointHeaderUnitTests extends SerializationUnitTests {
                 "        \"source_creation_date_time\": \"2013-02-05T07:25:00Z\",\n" +
                 "        \"modality\": \"self-reported\"\n" +
                 "    },\n" +
-                "    \"user_id\": \"user1\"\n" +
+                "    \"user_id\": \"user1\",\n" +
+                "    \"consent\": {\n" +
+                "        \"id\": \"123e4567-e89b-12d3-a456-426655440001\",\n" +
+                "        \"title\": \"Consent document\",\n" +
+                "        \"creation_date_time\": \"2013-02-05T07:30:00Z\",\n" +
+                "        \"can_withdraw\": true,\n" +
+                "        \"withdrawn\": false,\n" +
+                "        \"confidentiality\": \"individual study\",\n" +
+                "        \"expiry_date_time\": \"2020-02-05T07:30:00Z\",\n" +
+                "        \"study\": {\n" +
+                "            \"id\": \"123e4567-e89b-12d3-a456-426655440002\",\n" +
+                "            \"guid\": \"123e4567-e89b-12d3-a456-426655440003\"\n" +
+                "        }\n" +
+                "    }\n" +
                 "}";
 
         serializationShouldCreateValidDocument(header, document);
