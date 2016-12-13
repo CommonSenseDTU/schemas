@@ -17,8 +17,7 @@
 package org.openmhealth.schema.domain.omh;
 
 import org.openmhealth.schema.domain.ork.Confidentiality;
-import org.openmhealth.schema.domain.ork.InformedConsentDocument;
-import org.openmhealth.schema.domain.ork.Study;
+import org.openmhealth.schema.domain.ork.InformedConsent;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -140,8 +139,7 @@ public class DataPointHeaderUnitTests extends SerializationUnitTests {
 
         String id = "123e4567-e89b-12d3-a456-426655440000";
         String consentId = "123e4567-e89b-12d3-a456-426655440001";
-        String studyId = "123e4567-e89b-12d3-a456-426655440002";
-        String studyGuid = "123e4567-e89b-12d3-a456-426655440003";
+        String surveyId = "123e4567-e89b-12d3-a456-426655440002";
         SchemaId schemaId = new SchemaId("omh", "physical-activity", "1.1.RC1");
         OffsetDateTime creationDateTime = OffsetDateTime.of(2013, 2, 5, 7, 30, 0, 0, UTC);
         OffsetDateTime expiryDateTime = OffsetDateTime.of(2020, 2, 5, 7, 30, 0, 0, UTC);
@@ -154,14 +152,12 @@ public class DataPointHeaderUnitTests extends SerializationUnitTests {
                                 .build()
                 )
                 .setUserId("user1")
-                .setConsent(new InformedConsentDocument.Builder(consentId, creationDateTime)
+                .setConsent(new InformedConsent.Builder(consentId, surveyId, creationDateTime)
                         .setTitle("Consent document")
                         .setCanWithdraw(true)
                         .setWithdrawn(false)
                         .setExpiryDateTime(Optional.of(expiryDateTime))
-                        .setConfidentiality(Confidentiality.INDIVIDUAL_STUDY)
-                        .setStudy(new Study.Builder(studyId, studyGuid)
-                                .build())
+                        .setConfidentiality(Confidentiality.INDIVIDUAL_SURVEY)
                         .build())
                 .build();
 
@@ -185,11 +181,9 @@ public class DataPointHeaderUnitTests extends SerializationUnitTests {
                 "        \"creation_date_time\": \"2013-02-05T07:30:00Z\",\n" +
                 "        \"can_withdraw\": true,\n" +
                 "        \"withdrawn\": false,\n" +
-                "        \"confidentiality\": \"individual study\",\n" +
+                "        \"confidentiality\": \"individual survey\",\n" +
                 "        \"expiry_date_time\": \"2020-02-05T07:30:00Z\",\n" +
-                "        \"study\": {\n" +
-                "            \"id\": \"123e4567-e89b-12d3-a456-426655440002\",\n" +
-                "            \"guid\": \"123e4567-e89b-12d3-a456-426655440003\"\n" +
+                "        \"survey_id\": \"123e4567-e89b-12d3-a456-426655440002\"\n" +
                 "        }\n" +
                 "    }\n" +
                 "}";

@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public interface SchemaSupport {
 
     String OMH_NAMESPACE = "omh";
+    String ORK_NAMEPACE = "ork";
 
     /**
      * @return the schema this class corresponds to

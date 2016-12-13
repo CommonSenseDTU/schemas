@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import org.openmhealth.schema.domain.ork.InformedConsentDocument;
+import org.openmhealth.schema.domain.ork.InformedConsent;
 import org.openmhealth.schema.serializer.SerializationConstructor;
 
 import java.time.OffsetDateTime;
@@ -51,7 +51,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
     private DataPointAcquisitionProvenance acquisitionProvenance;
     private String userId;
     private Map<String, Object> additionalProperties = new HashMap<>();
-    private InformedConsentDocument consent;
+    private InformedConsent consent;
 
     @SerializationConstructor
     protected DataPointHeader() {
@@ -64,7 +64,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
         private SchemaId bodySchemaId;
         private DataPointAcquisitionProvenance acquisitionProvenance;
         private String userId;
-        private InformedConsentDocument consent;
+        private InformedConsent consent;
 
         /**
          * @param id the identifier of the data point
@@ -110,7 +110,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
             return this;
         }
 
-        public Builder setConsent(InformedConsentDocument consent) {
+        public Builder setConsent(InformedConsent consent) {
             this.consent = consent;
             return this;
         }
@@ -162,7 +162,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
         return this.additionalProperties;
     }
 
-    public InformedConsentDocument getConsent() {
+    public InformedConsent getConsent() {
         return consent;
     }
 

@@ -31,13 +31,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Created by Anders Borch on 29/11/16.
+ * @author Anders Borch
  */
 @JsonInclude(NON_NULL)
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
-public class InformedConsentDocument implements SchemaSupport {
+public class InformedConsent implements SchemaSupport {
 
-    public static final SchemaId SCHEMA_ID = new SchemaId(OMH_NAMESPACE, "informed-consent", "1.0");
+    public static final SchemaId SCHEMA_ID = new SchemaId(ORK_NAMEPACE, "informed-consent", "1.0");
 
     @Override
     public SchemaId getSchemaId() {
@@ -61,10 +61,10 @@ public class InformedConsentDocument implements SchemaSupport {
     private boolean withdrawn;
     private Optional<OffsetDateTime> expiryDateTime;
     private Confidentiality confidentiality;
-    private Study study;
+    private String surveyId;
 
     @SerializationConstructor
-    protected InformedConsentDocument() {
+    protected InformedConsent() {
     }
 
     public static class Builder {
@@ -76,26 +76,31 @@ public class InformedConsentDocument implements SchemaSupport {
         private boolean withdrawn;
         private Optional<OffsetDateTime> expiryDateTime;
         private Confidentiality confidentiality;
-        private Study study;
+        private String surveyId;
 
         /**
          * @param id the identifier of the informed consent document
+         * @param surveyGuid the globally unique identifier of the survey
          */
-        public Builder(String id) {
-            this(id, OffsetDateTime.now());
+        public Builder(String id, String surveyGuid) {
+            this(id, surveyGuid, OffsetDateTime.now());
         }
 
         /**
          * @param id the identifier of the data point
+         * @param surveyId the identifier of the survey
          * @param creationDateTime the creation date time of this informed consent document
          */
-        public Builder(String id, OffsetDateTime creationDateTime) {
+        public Builder(String id, String surveyId, OffsetDateTime creationDateTime) {
 
             checkNotNull(id, "An identifier hasn't been specified.");
             checkArgument(!id.isEmpty(), "An empty identifier has been specified.");
+            checkNotNull(surveyId, "A id hasn't been specified.");
+            checkArgument(!surveyId.isEmpty(), "An empty id has been specified.");
             checkNotNull(creationDateTime, "A creation date time hasn't been specified.");
 
             this.id = id;
+            this.surveyId = surveyId;
             this.creationDateTime = creationDateTime;
             this.withdrawn = false;
             this.canWithdraw = false;
@@ -147,17 +152,12 @@ public class InformedConsentDocument implements SchemaSupport {
             return this;
         }
 
-        public Builder setStudy(Study study) {
-            this.study = study;
-            return this;
-        }
-
-        public InformedConsentDocument build() {
-            return new InformedConsentDocument(this);
+        public InformedConsent build() {
+            return new InformedConsent(this);
         }
     }
 
-    private InformedConsentDocument(Builder builder) {
+    private InformedConsent(Builder builder) {
         this.id = builder.id;
         this.creationDateTime = builder.creationDateTime;
         this.title = builder.title;
@@ -165,7 +165,7 @@ public class InformedConsentDocument implements SchemaSupport {
         this.withdrawn = builder.withdrawn;
         this.expiryDateTime = builder.expiryDateTime;
         this.confidentiality = builder.confidentiality;
-        this.study = builder.study;
+        this.surveyId = builder.surveyId;
     }
 
     public String getId() {
@@ -196,8 +196,8 @@ public class InformedConsentDocument implements SchemaSupport {
         return confidentiality;
     }
 
-    public Study getStudy() {
-        return study;
+    public String getSurveyId() {
+        return surveyId;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
@@ -211,7 +211,7 @@ public class InformedConsentDocument implements SchemaSupport {
             return false;
         }
 
-        InformedConsentDocument that = (InformedConsentDocument) object;
+        InformedConsent that = (InformedConsent) object;
 
         return id.equals(that.id);
     }

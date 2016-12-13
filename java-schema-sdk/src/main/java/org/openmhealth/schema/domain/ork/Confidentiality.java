@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by Anders Borch on 01/12/16.
  */
 public enum Confidentiality implements SchemaEnumValue {
-    PRIVATE, INDIVIDUAL_STUDY, PUBLIC;
+    PRIVATE, INDIVIDUAL_SURVEY, PUBLIC;
 
     private String schemaValue;
     private static final Map<String, Confidentiality> constantsBySchemaValue = new HashMap<>();

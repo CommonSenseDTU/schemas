@@ -24,6 +24,7 @@ import org.openmhealth.schema.domain.omh.SchemaSupport;
 import org.openmhealth.schema.serializer.SerializationConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static com.google.common.base.Preconditions.checkArgument;
@@ -34,7 +35,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @JsonInclude(NON_NULL)
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
-public class Study implements SchemaSupport {
+public class Survey implements SchemaSupport {
     public static final SchemaId SCHEMA_ID = new SchemaId(OMH_NAMESPACE, "survey", "1.0");
 
     @Override
@@ -43,58 +44,107 @@ public class Study implements SchemaSupport {
     }
 
     private String id;
-    private String guid;
+    private String userId;
+    private OffsetDateTime creationDateTime;
+    private ConsentDocument consentDocument;
+    private Task task;
+    private List<String> participantIds;
 
     @SerializationConstructor
-    protected Study() {
+    protected Survey() {
     }
     public static class Builder {
 
         private String id;
-        private String guid;
+        private String userId;
+        private OffsetDateTime creationDateTime;
+        private ConsentDocument consentDocument;
+        private Task task;
+        private List<String> participantIds;
 
         /**
-         * @param id the identifier of the study
-         * @param guid the globally unique identifier of the study
+         * @param id the identifier of the survey
+         * @param userId the identifier of the user owning the survey
          */
-        public Builder(String id, String guid) {
+        public Builder(String id, String guid, String userId) {
 
-            this(id, guid, OffsetDateTime.now());
+            this(id, guid, userId, OffsetDateTime.now());
         }
 
         /**
          * @param id the identifier of the data point
-         * @param guid the globally unique identifier of the study
+         * @param userId the identifier of the user owning the survey
          * @param creationDateTime the creation date time of this data point
          */
-        public Builder(String id, String guid, OffsetDateTime creationDateTime) {
+        public Builder(String id, String guid, String userId, OffsetDateTime creationDateTime) {
 
             checkNotNull(id, "An identifier hasn't been specified.");
             checkNotNull(guid, "A globally unique identifier hasn't been specified.");
+            checkNotNull(userId, "A user identifier hasn't been specified.");
             checkArgument(!id.isEmpty(), "An empty identifier has been specified.");
             checkNotNull(creationDateTime, "A creation date time hasn't been specified.");
 
             this.id = id;
-            this.guid = guid;
+            this.userId = userId;
+            this.creationDateTime = creationDateTime;
         }
 
-        public Study build() {
-            return new Study(this);
+        public Builder setParticipantIds(List<String> participantIds) {
+            this.participantIds = participantIds;
+            return this;
+        }
+
+        public Builder setConsentDocument(ConsentDocument consentDocument) {
+            this.consentDocument = consentDocument;
+            return this;
+        }
+
+        public Builder setTask(Task task) {
+            this.task = task;
+            return this;
+        }
+
+        public Survey build() {
+            return new Survey(this);
         }
     }
 
-    private Study(Builder builder) {
+    private Survey(Builder builder) {
 
         this.id = builder.id;
-        this.guid = builder.guid;
+        this.userId = builder.userId;
+        this.creationDateTime = builder.creationDateTime;
+        this.consentDocument = builder.consentDocument;
+        this.task = builder.task;
+        this.participantIds = builder.participantIds;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getGuid() {
-        return guid;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public OffsetDateTime getCreationDateTime() {
+        return creationDateTime;
+    }
+
+    public ConsentDocument getConsentDocument() {
+        return consentDocument;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public List<String> getParticipantIds() {
+        return participantIds;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
@@ -108,14 +158,14 @@ public class Study implements SchemaSupport {
             return false;
         }
 
-        Study that = (Study) object;
+        Survey that = (Survey) object;
 
-        return guid.equals(that.guid);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return guid.hashCode();
+        return id.hashCode();
     }
 
 }
