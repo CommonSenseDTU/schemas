@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "description": "This schema represents a task.",
+
+    "definitions": {
+        "schema_id": {
+            "$ref": "../omh/schema-id-1.x.json"
+        }
+    },
+
+    "properties": {
+        "id": {
+            "description": "The identifier of this task. We strongly recommend this to be a globally unique value.",
+            "type": "string"
+        },
+        "schema_id": {
+            "description": "The schema identifier of the survey.",
+            "$ref": "#/definitions/schema_id"
+        }
+    },
+
+    "required": [
+    ]
+}

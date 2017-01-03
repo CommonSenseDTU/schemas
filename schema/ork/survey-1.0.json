@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "description": "This schema represents a survey.",
+
+    "definitions": {
+        "date_time": {
+            "$ref": "../omh/date-time-1.x.json"
+        },
+        "schema_id": {
+            "$ref": "../omh/schema-id-1.x.json"
+        },
+        "consent_document": {
+            "$ref": "consent-document-1.0.json"
+        },
+        "task": {
+            "$ref": "task-1.0.json"
+        }
+    },
+
+    "properties": {
+        "id": {
+            "description": "The identifier of this survey. We strongly recommend this to be a globally unique value.",
+            "type": "string"
+        },
+        "creation_date_time": {
+            "description": "The date time this survey point was created.",
+            "$ref": "#/definitions/date_time"
+        },
+        "schema_id": {
+            "description": "The schema identifier of the survey.",
+            "$ref": "#/definitions/schema_id"
+        },
+        "consent_document": {
+            "description": "The consent document of the survey.",
+            "$ref": "#/definitions/consent_document"
+        },
+        "task": {
+            "description": "The task of the survey.",
+            "$ref": "#/definitions/task"
+        },
+        "user_id": {
+            "description": "The user this survey belongs to.",
+            "type": "string"
+        }
+    },
+
+    "required": [
+        "id",
+        "creation_date_time",
+        "consent_document",
+        "user_id"
+    ]
+}

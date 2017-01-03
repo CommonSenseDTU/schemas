@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "description": "This schema represents a consent document.",
+
+    "definitions": {
+        "date_time": {
+            "$ref": "../omh/date-time-1.x.json"
+        },
+        "schema_id": {
+            "$ref": "../omh/schema-id-1.x.json"
+        },
+        "consent_section": {
+            "$ref": "consent-section-1.0.json"
+        }
+    },
+
+  	"properties": {
+      "id": {
+          "description": "The identifier of this consent document. We strongly recommend this to be a globally unique value.",
+          "type": "string"
+      },
+  		"creation_date_time": {
+              "description": "The date time this consent document was created.",
+              "$ref": "#/definitions/date_time"
+  		},
+  		"title": {
+  			"description": "Title of the consent document",
+  			"type": "string"
+  		},
+  		"can_withdraw": {
+  			"description": "Ability to withdraw consent",
+  			"type": "boolean"
+  		},
+      "sections": {
+        "description": "List of document sections",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#/definitions/consent_section"
+        }
+      }
+  	},
+
+  	"required": [
+  		"id",
+  		"creation_date_time",
+      "sections"
+  	]
+}

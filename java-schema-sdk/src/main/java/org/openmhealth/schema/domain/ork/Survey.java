@@ -44,7 +44,9 @@ public class Survey implements SchemaSupport {
     }
 
     private String id;
+    private String title;
     private String userId;
+    private String icon;
     private OffsetDateTime creationDateTime;
     private ConsentDocument consentDocument;
     private Task task;
@@ -56,7 +58,9 @@ public class Survey implements SchemaSupport {
     public static class Builder {
 
         private String id;
+        private String title;
         private String userId;
+        private String icon;
         private OffsetDateTime creationDateTime;
         private ConsentDocument consentDocument;
         private Task task;
@@ -99,8 +103,18 @@ public class Survey implements SchemaSupport {
             return this;
         }
 
+        public Builder setIcon(String icon) {
+            this.icon = icon;
+            return this;
+        }
+
         public Builder setTask(Task task) {
             this.task = task;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
             return this;
         }
 
@@ -113,6 +127,8 @@ public class Survey implements SchemaSupport {
 
         this.id = builder.id;
         this.userId = builder.userId;
+        this.title = builder.title;
+        this.icon = builder.icon;
         this.creationDateTime = builder.creationDateTime;
         this.consentDocument = builder.consentDocument;
         this.task = builder.task;
@@ -145,6 +161,14 @@ public class Survey implements SchemaSupport {
 
     public List<String> getParticipantIds() {
         return participantIds;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")

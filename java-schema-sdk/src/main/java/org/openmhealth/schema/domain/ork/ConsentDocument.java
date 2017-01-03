@@ -1,6 +1,7 @@
 package org.openmhealth.schema.domain.ork;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.openmhealth.schema.domain.omh.SchemaId;
@@ -31,6 +32,7 @@ public class ConsentDocument implements SchemaSupport {
     private OffsetDateTime creationDateTime;
     private OffsetDateTime modificationDateTime;
     private List<ConsentSection> sections;
+    private List<String> participantIds;
 
     @SerializationConstructor
     protected ConsentDocument() {}
@@ -94,6 +96,10 @@ public class ConsentDocument implements SchemaSupport {
 
     public List<ConsentSection> getSections() {
         return sections;
+    }
+
+    public List<String> getParticipantIds() {
+        return participantIds;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
