@@ -163,7 +163,9 @@ public class ConsentSection implements SchemaSupport {
             return false;
         }
 
-        if (!content.equals(that.content)) {
+        if (content != null && !content.equals(that.content)) {
+            return false;
+        } else if (that.content != null) {
             return false;
         }
 
