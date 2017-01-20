@@ -34,6 +34,7 @@ public class ConsentSection implements SchemaSupport {
     private String title;
     private String summary;
     private String content;
+    private String popup;
 
     @SerializationConstructor
     protected ConsentSection() {}
@@ -46,6 +47,7 @@ public class ConsentSection implements SchemaSupport {
         private String title;
         private String summary;
         private String content;
+        private String popup;
 
         public Builder(String id, ConsentSectionType type, OffsetDateTime creationDateTime, OffsetDateTime modificationDateTime) {
 
@@ -70,6 +72,11 @@ public class ConsentSection implements SchemaSupport {
             return this;
         }
 
+        public Builder setPopup(String popup) {
+            this.popup = popup;
+            return this;
+        }
+
         public ConsentSection build() {
             return new ConsentSection(this);
         }
@@ -84,6 +91,7 @@ public class ConsentSection implements SchemaSupport {
         this.title = builder.title;
         this.summary = builder.summary;
         this.content = builder.content;
+        this.popup = builder.popup;
     }
 
     public String getId() {
@@ -122,6 +130,10 @@ public class ConsentSection implements SchemaSupport {
         return content;
     }
 
+    public String getPopup() {
+        return popup;
+    }
+
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object object) {
@@ -155,6 +167,12 @@ public class ConsentSection implements SchemaSupport {
             return false;
         }
 
+        if (popup != null && !popup.equals(that.popup)) {
+            return false;
+        } else if (that.popup != null) {
+            return false;
+        }
+
         return id.equals(that.id);
     }
 
@@ -167,6 +185,7 @@ public class ConsentSection implements SchemaSupport {
         result = 31 * result + title.hashCode();
         result = 31 * result + summary.hashCode();
         result = 31 * result + content.hashCode();
+        result = 31 * result + popup.hashCode();
         return result;
     }
 }
