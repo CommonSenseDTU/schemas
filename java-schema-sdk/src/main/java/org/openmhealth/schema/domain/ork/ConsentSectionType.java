@@ -24,6 +24,7 @@ public enum ConsentSectionType implements SchemaEnumValue {
     ONLYINDOCUMENT,
     SHARINGOPTIONS,
     REVIEW,
+    CONSENT,
     SIGNATURE;
 
     private String schemaValue;
