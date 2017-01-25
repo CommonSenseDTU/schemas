@@ -62,6 +62,7 @@ public class InformedConsent implements SchemaSupport {
     private Optional<OffsetDateTime> expiryDateTime;
     private Confidentiality confidentiality;
     private String surveyId;
+    private String signatureId;
 
     @SerializationConstructor
     protected InformedConsent() {
@@ -77,6 +78,7 @@ public class InformedConsent implements SchemaSupport {
         private Optional<OffsetDateTime> expiryDateTime;
         private Confidentiality confidentiality;
         private String surveyId;
+        private String signatureId;
 
         /**
          * @param id the identifier of the informed consent document
@@ -152,6 +154,11 @@ public class InformedConsent implements SchemaSupport {
             return this;
         }
 
+        public Builder setSignatureId(String signatureId) {
+            this.signatureId = signatureId;
+            return this;
+        }
+
         public InformedConsent build() {
             return new InformedConsent(this);
         }
@@ -166,6 +173,7 @@ public class InformedConsent implements SchemaSupport {
         this.expiryDateTime = builder.expiryDateTime;
         this.confidentiality = builder.confidentiality;
         this.surveyId = builder.surveyId;
+        this.signatureId = builder.signatureId;
     }
 
     public String getId() {
@@ -198,6 +206,10 @@ public class InformedConsent implements SchemaSupport {
 
     public String getSurveyId() {
         return surveyId;
+    }
+
+    public String getSignatureId() {
+        return signatureId;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
