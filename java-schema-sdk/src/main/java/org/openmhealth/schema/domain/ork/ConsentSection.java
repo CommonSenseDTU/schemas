@@ -35,6 +35,7 @@ public class ConsentSection implements SchemaSupport {
     private String summary;
     private String content;
     private String popup;
+    private ArrayList<String> options;
 
     @SerializationConstructor
     protected ConsentSection() {}
@@ -134,6 +135,10 @@ public class ConsentSection implements SchemaSupport {
         return popup;
     }
 
+    public ArrayList<String> getOptions() {
+        return options;
+    }
+
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object object) {
@@ -159,7 +164,9 @@ public class ConsentSection implements SchemaSupport {
             return false;
         }
 
-        if (!summary.equals(that.summary)) {
+        if (summary != null && !summary.equals(that.summary)) {
+            return false;
+        } else if (that.summary != null) {
             return false;
         }
 
@@ -172,6 +179,12 @@ public class ConsentSection implements SchemaSupport {
         if (popup != null && !popup.equals(that.popup)) {
             return false;
         } else if (that.popup != null) {
+            return false;
+        }
+
+        if (options != null && !options.equals(that.options)) {
+            return false;
+        } else if (that.options != null) {
             return false;
         }
 
@@ -188,6 +201,7 @@ public class ConsentSection implements SchemaSupport {
         result = 31 * result + summary.hashCode();
         result = 31 * result + content.hashCode();
         result = 31 * result + popup.hashCode();
+        result = 31 * result + options.hashCode();
         return result;
     }
 }
