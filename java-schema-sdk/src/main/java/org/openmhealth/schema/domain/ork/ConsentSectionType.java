@@ -25,7 +25,8 @@ public enum ConsentSectionType implements SchemaEnumValue {
     SHARINGOPTIONS,
     REVIEW,
     CONSENT,
-    SIGNATURE;
+    SIGNATURE,
+    REGISTRATION;
 
     private String schemaValue;
     private static final Map<String, ConsentSectionType> constantsBySchemaValue = new HashMap<>();
