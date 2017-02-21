@@ -8,6 +8,8 @@ import org.openmhealth.schema.domain.omh.SchemaId;
 import org.openmhealth.schema.domain.omh.SchemaSupport;
 import org.openmhealth.schema.serializer.SerializationConstructor;
 
+import java.time.OffsetDateTime;
+
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
@@ -24,9 +26,11 @@ public class Signature implements SchemaSupport {
     }
 
     private String id;
+    private String userId;
     private String firstName;
     private String lastName;
     private String imageData;
+    private OffsetDateTime creationDateTime;
     private ConsentDocument document;
 
     @SerializationConstructor
@@ -34,6 +38,14 @@ public class Signature implements SchemaSupport {
 
     public String getId() {
         return id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -46,6 +58,10 @@ public class Signature implements SchemaSupport {
 
     public String getImageData() {
         return imageData;
+    }
+
+    public OffsetDateTime getCreationDateTime() {
+        return creationDateTime;
     }
 
     public ConsentDocument getDocument() {
