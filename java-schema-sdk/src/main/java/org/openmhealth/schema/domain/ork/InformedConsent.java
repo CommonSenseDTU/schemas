@@ -17,6 +17,7 @@
 package org.openmhealth.schema.domain.ork;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.openmhealth.schema.domain.omh.SchemaId;
@@ -40,6 +41,7 @@ public class InformedConsent implements SchemaSupport {
     public static final SchemaId SCHEMA_ID = new SchemaId(ORK_NAMEPACE, "informed-consent", "1.0");
 
     @Override
+    @JsonProperty("schema_id")
     public SchemaId getSchemaId() {
         return SCHEMA_ID;
     }
@@ -82,10 +84,10 @@ public class InformedConsent implements SchemaSupport {
 
         /**
          * @param id the identifier of the informed consent document
-         * @param surveyGuid the globally unique identifier of the survey
+         * @param surveyId the identifier of the survey
          */
-        public Builder(String id, String surveyGuid) {
-            this(id, surveyGuid, OffsetDateTime.now());
+        public Builder(String id, String surveyId) {
+            this(id, surveyId, OffsetDateTime.now());
         }
 
         /**
