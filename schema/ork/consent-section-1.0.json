@@ -1,17 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "description": "This schema represents a consent document.",
+    "description": "This schema represents a section in a consent document.",
 
     "definitions": {
         "date_time": {
             "$ref": "../omh/date-time-1.x.json"
-        },
-        "schema_id": {
-            "$ref": "../omh/schema-id-1.x.json"
-        },
-        "consent_section": {
-            "$ref": "consent-section-1.0.json"
         }
     },
 
@@ -32,12 +26,27 @@
             "description": "Title of the consent document",
             "type": "string"
         },
-        "sections": {
-            "description": "List of document sections",
+        "type": {
+            "description": "Type of the consent document",
+            "type": "string"
+        },
+        "summary": {
+            "description": "Summary of the consent document",
+            "type": "string"
+        },
+        "content": {
+            "description": "Content of the consent document",
+            "type": "string"
+        },
+        "popup": {
+          "description": "Content of a popup shown in this consent document",
+          "type": "string"
+        },
+        "options": {
+            "description": "List of document consent section options",
             "type": "array",
             "items": {
-                "type": "object",
-                "$ref": "#/definitions/consent_section"
+                "type": "string"
             }
         }
     },
