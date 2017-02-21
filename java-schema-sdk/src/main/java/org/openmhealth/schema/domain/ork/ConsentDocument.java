@@ -15,7 +15,7 @@ import java.util.List;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
- * Created by Anders Borch on 09/12/16.
+ * @author Anders Borch
  */
 @JsonInclude(NON_NULL)
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
@@ -32,7 +32,6 @@ public class ConsentDocument implements SchemaSupport {
     private OffsetDateTime creationDateTime;
     private OffsetDateTime modificationDateTime;
     private List<ConsentSection> sections;
-    private List<String> participantIds;
 
     @SerializationConstructor
     protected ConsentDocument() {}
@@ -96,10 +95,6 @@ public class ConsentDocument implements SchemaSupport {
 
     public List<ConsentSection> getSections() {
         return sections;
-    }
-
-    public List<String> getParticipantIds() {
-        return participantIds;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
