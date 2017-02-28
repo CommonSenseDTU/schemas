@@ -10,6 +10,7 @@ import org.openmhealth.schema.serializer.SerializationConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static org.openmhealth.schema.domain.omh.SchemaSupport.ORK_NAMEPACE;
@@ -29,6 +30,10 @@ public class Step implements SchemaSupport {
     }
 
     private String id;
+    private String title;
+    private String type;
+    private List<String> sensors;
+    private Map<String, Object> settings;
 
     @SerializationConstructor
     protected Step() {}
@@ -49,6 +54,26 @@ public class Step implements SchemaSupport {
     protected Step(Builder builder) {
 
         this.id = builder.id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public List<String> getSensors() {
+        return sensors;
+    }
+
+    public Map<String, Object> getSettings() {
+        return settings;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
