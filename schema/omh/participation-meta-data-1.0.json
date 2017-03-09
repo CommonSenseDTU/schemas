@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "description": "This schema represents meta data that is stored along with a user's participation in a survey.",
+  "type": "object",
+
+  "properties": {
+    "survey_id": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object"
+    }
+
+  },
+
+  "required": [
+    "survey_id",
+    "user_id",
+    "data"
+  ]
+}
