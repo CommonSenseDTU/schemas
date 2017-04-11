@@ -34,6 +34,9 @@ public class Step implements SchemaSupport {
     private String type;
     private List<String> sensors;
     private Map<String, Object> settings;
+    private boolean isPrivate;
+    private List<Map<String, Object>> items;
+    private boolean isSkippable;
 
     @SerializationConstructor
     protected Step() {}
@@ -74,6 +77,18 @@ public class Step implements SchemaSupport {
 
     public Map<String, Object> getSettings() {
         return settings;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public List<Map<String, Object>> getItems() {
+        return items;
+    }
+
+    public boolean isSkippable() {
+        return isSkippable;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
