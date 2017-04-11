@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "description": "This schema represents a step in a survey task.",
+
+    "definitions": {
+        "schema_id": {
+            "$ref": "../omh/schema-id-1.x.json"
+        }
+    },
+
+    "properties": {
+        "id": {
+            "description": "The identifier of this survey. We strongly recommend this to be a globally unique value.",
+            "type": "string"
+        },
+        "type": {
+            "description": "The type of step",
+            "type": "string"
+        },
+        "title": {
+            "description": "The title of this step",
+            "type": "string"
+        },
+        "sensors": {
+            "description": "A list of strings identifying active sensors",
+            "type": "array"
+        },
+        "settings": {
+            "description": "A map of custom settings defined by the type of step",
+            "type": "object"
+        },
+        "private": {
+            "description": "Boolean signifying if the result of this step should be treated as sensitive data",
+            "type": "boolean"
+        },
+        "skippable": {
+            "description": "Boolean value signifying if the skip option should be visible",
+            "type": "boolean"
+        }
+    },
+
+    "required": [
+        "id",
+        "type"
+    ]
+}
