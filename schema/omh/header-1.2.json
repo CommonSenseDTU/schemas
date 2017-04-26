@@ -52,10 +52,10 @@
             "description": "The user this data point belongs to.",
             "type": "string"
         },
-		"consent": {
+        "consent": {
             "description": "The consent document that is consented to before submitting this data point.",
             "$ref": "#/definitions/consent"
-		}
+        }
     },
 
     "required": [
