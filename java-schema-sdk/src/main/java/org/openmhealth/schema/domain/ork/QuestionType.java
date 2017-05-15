@@ -24,7 +24,8 @@ public enum QuestionType implements SchemaEnumValue {
     DATEANDTIME,
     DATE,
     TIMEINTERVAL,
-    LOCATION;
+    LOCATION,
+    IMAGECHOICE;
 
     private String schemaValue;
     private static final Map<String, QuestionType> constantsBySchemaValue = new HashMap<>();
