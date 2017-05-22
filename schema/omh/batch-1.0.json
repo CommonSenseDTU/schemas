@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+
+    "description": "This schema represents a batch data transaction.",
+    "type": "object",
+
+    "definitions": {
+        "header": {
+          "$ref": "header-1.x.json"
+        },
+        "data-point": {
+          "$ref": "data-point-1.x.json"
+        }
+    },
+
+    "properties": {
+        "header": {
+            "description": "Common header, which is merged with the header in each data point.",
+            "$ref": "#/definitions/schema_id"
+        },
+        "data_points": {
+          "type": "array",
+          "description": "A list of data points. The header in each data point should only contain unique properties - common properties should go in the batch header.",
+          "items": {
+              "$ref": "#/definitions/data-point"
+            }
+        }
+    },
+
+    "required": [
+        "data_points"
+    ]
+}

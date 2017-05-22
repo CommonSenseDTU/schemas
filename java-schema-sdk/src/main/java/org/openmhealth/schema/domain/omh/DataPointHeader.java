@@ -65,6 +65,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
         private DataPointAcquisitionProvenance acquisitionProvenance;
         private String userId;
         private InformedConsent consent;
+        private Map<String, Object> additionalProperties = new HashMap<>();
 
         /**
          * @param id the identifier of the data point
@@ -115,6 +116,10 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
             return this;
         }
 
+        public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties = additionalProperties;
+        }
+
         public DataPointHeader build() {
             return new DataPointHeader(this);
         }
@@ -128,6 +133,7 @@ public class DataPointHeader implements SchemaSupport, AdditionalPropertySupport
         this.acquisitionProvenance = builder.acquisitionProvenance;
         this.userId = builder.userId;
         this.consent = builder.consent;
+        this.additionalProperties = builder.additionalProperties;
     }
 
     public String getId() {
